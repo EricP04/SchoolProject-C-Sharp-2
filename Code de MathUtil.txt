@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+
+namespace MathUtilLibrary
+{
+   public class MathUtil
+    {
+        static public double DistanceDeuxPoints(double x1, double y1, double x2, double y2)
+        {
+            return Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
+        }
+          /*
+          * Dans le cas de la ligne, nous considérerons qu’un point
+            se trouve proche de la ligne si elle est proche d’un de ses points ou si la
+            distance qui sépare le point d’un des segments de celle-ci est inférieure
+            la précision*/
+        public static double DistancePointSegment(double xP, double yP, double x1, double y1, double x2, double y2)
+        {
+            double distance;
+            double coefDirect = (y2 - y1) / (x2 - x1);
+
+            ///Calcul K = y1-2*x1
+            double k = y1 - coefDirect * x1;
+            distance = (Math.Abs(coefDirect * xP - yP + k)) / (Math.Sqrt(Math.Pow(coefDirect, 2) + 1));
+            return distance;
+        }
+        public static bool IsInTriangle(double xA, double yA, double xB, double yB, double xC, double yC, double xP, double yP)
+        {
+            ///Doivent avoir le même signe (être du même coté de l'axe (1er 2eme parametre)) que l'angle opposé du triangle
+            ///donc même signe                                                                  = (= même signe)(pas de valeur)
+            if (Math.Sign(Contrib(xA, yA, xB, yB, xP, yP)) != Math.Sign(Contrib(xA, yA, xB, yB, xC, yC))) ///Cab(P) = Cab(C)
+                if (Math.Sign(Contrib(xA, yA, xB, yB, xP, yP)) != 0)
+                    return false;
+            if (Math.Sign(Contrib(xB, yB, xC, yC, xP, yP)) != Math.Sign(Contrib(xB, yB, xC, yC, xA, yA))) /// Cbc(P) = Cbc(A)
+                if (Math.Sign(Contrib(xB, yB, xC, yC, xP, yP)) != 0)
+                    return false;
+
+            if (Math.Sign(Contrib(xA, yA, xC, yC, xP, yP)) != Math.Sign(Contrib(xA, yA, xC, yC, xB, yB)))/// Cac(P) = Cac(B)
+                if ((Math.Sign(Contrib(xA, yA, xC, yC, xP, yP))) != 0)
+                    return false;
+
+
+
+
+            return true;
+        }
+        public static double Contrib(double xA, double yA, double xB, double yB, double xP, double yP)
+        {
+            double contribution = (yB - yA) * xP + (xA - xB) * yP + (xB * yA - xA * yB);
+            return contribution;
+        }
+
+
+    }
+}

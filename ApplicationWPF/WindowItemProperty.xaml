@@ -1,0 +1,153 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ApplicationWPF"
+        xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+        xmlns:ProjectLibraryClass="clr-namespace:ProjectLibraryClass;assembly=ProjectLibraryClass" x:Class="ApplicationWPF.WindowItemProperty"
+        mc:Ignorable="d"
+        Title="WindowItemProperty" Height="400" Width="300">
+    <DockPanel>
+        
+        <Grid DockPanel.Dock="Bottom" Background="LightGray" Height="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" x:Name="Prévisualiser"  Content="Prévisuliser" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="Aqua" Click="Prévisualiser_Click"/>
+            <Button Grid.Column="1" x:Name="AppliquerModif" Content="Appliquer" Visibility="Visible" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="Aqua" Click="AppliquerModif_Click"/>
+            <Button Grid.Column="3" x:Name="Effacer" Content="Effacer" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="Red" Click="Effacer_Click"/>
+            <Button Grid.Column="2" x:Name="AnnulerBouton"  Content="Annuler" Visibility="Visible" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="Aqua" Click="AnnulerBouton_Click"/>
+        </Grid>
+        <Grid DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <m:Map Grid.Row="0" x:Name="myMapProperty" Mode="AerialWithLabels" CredentialsProvider="AvUbMxG1awNdAbHG8mYRSLxNFIFw_d2jHLahK2GRjAN7BIAc6TgX9NFrvlNhDFXC" />
+            <GridSplitter Grid.Row="1" Height="5"/>
+            <TabControl Grid.Row="2">
+                <TabItem Header="Position/Description">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock  Grid.Column="0" Text="X" HorizontalAlignment="Center"/>
+                            <GridSplitter Grid.Column="1"/>
+                            <TextBlock Grid.Column="2" Text="Y" HorizontalAlignment="Center"/>
+                            <GridSplitter Grid.Column="3"/>
+                            <TextBlock Grid.Column="4" Text="Description" HorizontalAlignment="Center"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ListBox Grid.Column="0" Name="ListBoxPropertyX" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBox  x:Name="TextPropertyX" Text="{Binding X}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                            <GridSplitter Grid.Column="1" Height="10"/>
+                            <ListBox  Grid.Column="2" Name="ListBoxPropertyY" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBox x:Name="TextPropertyY" Text="{Binding Y}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <GridSplitter Grid.Column="3" Height="5"/>
+                            <ListBox Grid.Column ="4" Name="ListBoxPropertyDesc" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBox x:Name="TextPropertyDesc" Text="{Binding Description}" TextChanged="TextProperty_TextChanged"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Contour" Name="tIContour">
+                <StackPanel>
+                        <TextBlock Text="Couleur de contour" TextDecorations="Underline" HorizontalAlignment="Left"/>
+                        <Canvas HorizontalAlignment="Center">
+                            <Rectangle x:Name="PreviewColorContour" Width="50" Height="20" HorizontalAlignment="Right" Fill="{Binding}"/>
+                        </Canvas>
+
+                        <Grid>
+                            <TextBlock Text="R"/>
+                            <TextBlock x:Name="TbContourR" Text="{Binding ElementName=SliderContourR, Path=Value}" HorizontalAlignment="Right"/>
+                        </Grid>
+                        <Slider x:Name="SliderContourR" IsSnapToTickEnabled="True" Maximum="255" TickPlacement="BottomRight" TickFrequency="5" ValueChanged="SliderContourR_ValueChanged"/>
+                        <Grid>
+                            <TextBlock Text="G"/>
+                            <TextBlock x:Name="TbContourG" Text="{Binding ElementName=SliderContourG, Path=Value}" HorizontalAlignment="Right"/>
+                        </Grid>
+                        <Slider x:Name="SliderContourG" IsSnapToTickEnabled="True" Maximum="255" TickPlacement="BottomRight" TickFrequency="5" ValueChanged="SliderContourG_ValueChanged"/>
+                        <Grid>
+                            <TextBlock Text="B"/>
+                            <TextBlock x:Name="TbContourB" Text="{Binding ElementName=SliderContourB, Path=Value}" HorizontalAlignment="Right"/>
+                        </Grid>
+                        <Slider x:Name="SliderContourB" IsSnapToTickEnabled="True" Maximum="255" TickPlacement="BottomRight" TickFrequency="5" ValueChanged="SliderContourB_ValueChanged"/>
+                        <GridSplitter Height="5"/>
+
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Remplissage" x:Name="tIRemplissage">
+                    <StackPanel>
+                        <TextBlock Text="Couleur de remplissage" TextDecorations="Underline" HorizontalAlignment="Left"/>
+                        <Canvas HorizontalAlignment="Center">
+                            <Rectangle x:Name="PreviewColorRemplissage" Width="50" Height="20" HorizontalAlignment="Right" Fill="{Binding}"/>
+                        </Canvas>
+
+                        <Grid>
+                            <TextBlock Text="R"/>
+                            <TextBlock x:Name="TbRemplirR" Text="{Binding ElementName=SliderRemplirR, Path=Value}" HorizontalAlignment="Right"/>
+                        </Grid>
+                        <Slider x:Name="SliderRemplirR" IsSnapToTickEnabled="True" Maximum="255" TickPlacement="BottomRight" TickFrequency="5" ValueChanged="SliderRemplirR_ValueChanged"/>
+                        <Grid>
+                            <TextBlock Text="G"/>
+                            <TextBlock x:Name="TbRemplirG" Text="{Binding ElementName=SliderRemplirG, Path=Value}" HorizontalAlignment="Right"/>
+                        </Grid>
+                        <Slider x:Name="SliderRemplirG" IsSnapToTickEnabled="True" Maximum="255" TickPlacement="BottomRight" TickFrequency="5" ValueChanged="SliderRemplirG_ValueChanged"/>
+                        <Grid>
+                            <TextBlock Text="B"/>
+                            <TextBlock x:Name="TbRemplirB" Text="{Binding ElementName=SliderRemplirB, Path=Value}" HorizontalAlignment="Right"/>
+                        </Grid>
+                        <Slider x:Name="SliderRemplirB" IsSnapToTickEnabled="True" Maximum="255" TickPlacement="BottomRight" TickFrequency="5" ValueChanged="SliderRemplirB_ValueChanged"/>
+
+
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </Grid>
+
+    </DockPanel>
+    
+</Window>

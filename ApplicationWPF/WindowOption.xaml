@@ -1,0 +1,135 @@
+﻿<Window x:Class="ApplicationWPF.WindowOption"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ApplicationWPF"
+        mc:Ignorable="d"
+        Title="WindowOption" Height="480" Width="300">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Map">
+                <StackPanel VerticalAlignment="Top">
+                    <TextBlock Text="OPTION"  TextDecorations="Underline" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="15"/>
+                    <Grid VerticalAlignment="Top">
+                        <TextBlock Text="Opacite" TextDecorations="Underline" HorizontalAlignment="Left"/>
+                        <TextBlock x:Name="TbOpacite" Text="{Binding ElementName=SliderOpacite, Path=Value}" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <Slider x:Name="SliderOpacite" Maximum="1" TickPlacement="BottomRight" TickFrequency="0.1" IsSnapToTickEnabled="True"  ValueChanged="SliderOpacite_ValueChanged"/>
+                    <Grid VerticalAlignment="Top">
+                        <TextBlock Text="Precision" TextDecorations="Underline" HorizontalAlignment="Left"/>
+                        <TextBlock x:Name="TbPrecision" Text="{Binding ElementName=SliderPrecision, Path=Value}" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <Slider x:Name="SliderPrecision" IsSnapToTickEnabled="True" Maximum="100" TickPlacement="BottomRight" TickFrequency="5"  ValueChanged="SliderPrecision_ValueChanged"/>
+                    <Grid VerticalAlignment="Top">
+                        <TextBlock Text="Epaisseur" TextDecorations="Underline" HorizontalAlignment="Left"/>
+                        <TextBlock x:Name="TbEpaisseur" Text="{Binding ElementName=SliderEpaisseur, Path =Value}" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <Slider x:Name="SliderEpaisseur" IsSnapToTickEnabled="True" Maximum="25" TickPlacement="BottomRight" TickFrequency="5"  ValueChanged="SliderEpaisseur_ValueChanged"/>
+
+                    <TextBlock Text="Couleur de contour par défault" TextDecorations="Underline" HorizontalAlignment="Left"/>
+                    <Canvas HorizontalAlignment="Center">
+                        <Rectangle x:Name="PreviewColorContour" Width="50" Height="20" HorizontalAlignment="Right" Fill="{Binding}"/>
+                    </Canvas>
+
+                    <Grid>
+                        <TextBlock Text="R"/>
+                        <TextBlock x:Name="TbContourR" Text="{Binding ElementName=SliderContourR, Path=Value}" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <Slider x:Name="SliderContourR" IsSnapToTickEnabled="True" Maximum="255" TickPlacement="BottomRight" TickFrequency="5" ValueChanged="SliderContourR_ValueChanged"/>
+                    <Grid>
+                        <TextBlock Text="G"/>
+                        <TextBlock x:Name="TbContourG" Text="{Binding ElementName=SliderContourG, Path=Value}" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <Slider x:Name="SliderContourG" IsSnapToTickEnabled="True" Maximum="255" TickPlacement="BottomRight" TickFrequency="5" ValueChanged="SliderContourG_ValueChanged"/>
+                    <Grid>
+                        <TextBlock Text="B"/>
+                        <TextBlock x:Name="TbContourB" Text="{Binding ElementName=SliderContourB, Path=Value}" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <Slider x:Name="SliderContourB" IsSnapToTickEnabled="True" Maximum="255" TickPlacement="BottomRight" TickFrequency="5" ValueChanged="SliderContourB_ValueChanged"/>
+                    <GridSplitter Height="5"/>
+
+                    <TextBlock Text="Couleur de remplissage par défault" TextDecorations="Underline" HorizontalAlignment="Left"/>
+                    <Canvas HorizontalAlignment="Center">
+                        <Rectangle x:Name="PreviewColorRemplissage" Width="50" Height="20" HorizontalAlignment="Right" Fill="{Binding}"/>
+                    </Canvas>
+
+                    <Grid>
+                        <TextBlock Text="R"/>
+                        <TextBlock x:Name="TbRemplirR" Text="{Binding ElementName=SliderRemplirR, Path=Value}" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <Slider x:Name="SliderRemplirR" IsSnapToTickEnabled="True" Maximum="255" TickPlacement="BottomRight" TickFrequency="5" ValueChanged="SliderRemplirR_ValueChanged"/>
+                    <Grid>
+                        <TextBlock Text="G"/>
+                        <TextBlock x:Name="TbRemplirG" Text="{Binding ElementName=SliderRemplirG, Path=Value}" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <Slider x:Name="SliderRemplirG" IsSnapToTickEnabled="True" Maximum="255" TickPlacement="BottomRight" TickFrequency="5" ValueChanged="SliderRemplirG_ValueChanged"/>
+                    <Grid>
+                        <TextBlock Text="B"/>
+                        <TextBlock x:Name="TbRemplirB" Text="{Binding ElementName=SliderRemplirB, Path=Value}" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <Slider x:Name="SliderRemplirB" IsSnapToTickEnabled="True" Maximum="255" TickPlacement="BottomRight" TickFrequency="5" ValueChanged="SliderRemplirB_ValueChanged"/>
+
+
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Fichier">
+                <StackPanel>
+                    <Grid>
+                        <TextBlock Text="Veuillez sélectionner un fichier où exporter"/>
+                        <Button x:Name="ButtonFichierSelect" Content="Choisir" HorizontalAlignment="Right" Click="ButtonFichierSelect_Click"/>
+                        
+                    </Grid>
+                    <TextBlock Text="Fichier actuellement sélectionné "/>
+                    <TextBlock x:Name="tbFileActuallySelected" />
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="ListBox">
+                <StackPanel>
+                    <StackPanel>
+                    <TextBlock Text="Couleur du background" TextDecorations="Underline" HorizontalAlignment="Left"/>
+                    <Menu>
+
+                        <MenuItem Header="Couleur">
+                            <ScrollBar Name="Scroller" Orientation="Vertical"/>
+                            <ListBox  x:Name="ListboxBackgroundDisplayer" SelectionChanged="ListboxBackgroundDisplayer_SelectionChanged">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel IsItemsHost="True" Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                   
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding Name}" HorizontalAlignment="Left" />
+                                    <Rectangle Grid.Column="1" HorizontalAlignment="Right" Fill="{Binding Name}" Width="20" StrokeThickness="1" Height="20"/>
+                                </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </MenuItem>
+                    </Menu>
+               </StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" x:Name="tbActuellementSelectionne" Text="Couleur actuellement sélectionné : "/>
+                        <Rectangle Grid.Row="0" x:Name="RectangleActuallySelected" Fill="AliceBlue" Height="20" Width="40" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="tbCouleurSelect" Grid.Row="1" Text="Couleur sélectionné : " />
+                        <Rectangle Grid.Row="1" x:Name="RectanglePreviewBgColor" Fill="AliceBlue" Height="20" Width="40" HorizontalAlignment="Right"/>
+                        <Button Grid.Row="2" x:Name="lbAppliquerButton" Content="Appliquer" Background="AliceBlue" HorizontalAlignment="Right" Click="lbAppliquerButton_Click" />
+                        <Button Grid.Row="2" x:Name="lbAnnulerAppliquerButton" Content="Annuler" Background="AliceBlue" HorizontalAlignment="Left" Click="lbAnnulerAppliquerButton_Click"/>
+                    </Grid>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

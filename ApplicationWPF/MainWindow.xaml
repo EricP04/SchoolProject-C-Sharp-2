@@ -1,0 +1,58 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ApplicationWPF"
+        xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+        xmlns:ProjectLibraryClass="clr-namespace:ProjectLibraryClass;assembly=ProjectLibraryClass" x:Class="ApplicationWPF.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Open" Click="MenuItemOpen_Click" />
+                <MenuItem Header="Save" Click="MenuItemSave_Click"/>
+                <MenuItem Header="POI" >
+                    <MenuItem Header="Import" Click="MenuItemPOIImport_Click"/>
+                    <MenuItem Header="Export"  Click="MenuItemPoiExport_Click"/>
+                </MenuItem>
+                <MenuItem Header="Trajets">
+                    <MenuItem Header="Import" Click="MenuItemTrajetImport_Click"/>
+                    <MenuItem Header="Export" Click="MenuItemTrajetExport_Click"/>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Exit" Click="MenuItemExit_Click"/>
+            </MenuItem>
+            <MenuItem Header="_Tool">
+                <MenuItem Header="_Option" Click="MenuItemOption_Click"/>
+                <MenuItem Header="_AboutBox" Click="MenuItemAboutBox_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <Menu DockPanel.Dock="Top" >
+            <RadioButton x:Name="RBPoi" Content="POI" Checked="RB_Checked"/>
+            <RadioButton x:Name="RBPolyline" Content="Polyline" Checked="RB_Checked"/>
+            <RadioButton x:Name="RBPolygon" Content="Polygon" Checked="RB_Checked"/>
+            <Button x:Name="BouttonCreer" Content="Créer" Click="ButtonCreer_Click"/>
+            <Button x:Name="BouttonModifier" Content="Modifier" Click="ButtonModifier_Click"/>
+            <Button x:Name="BouttonSupprimer" Content="Supprimer" Click="ButtonSupprimer_Click"/>
+            <Button Visibility="Hidden" x:Name="BouttonFinirTrace" Content="Finir traçage" Click="ButtonFinirTrace_Click"/>
+        </Menu>
+        <StatusBarItem DockPanel.Dock="Bottom">
+            <TextBlock Text="ici status bar"  x:Name="statusBar"/>
+        </StatusBarItem>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ListBox ItemsSource="{Binding CartoCollection}" x:Name="ListBoxMyPersonalData" IsSynchronizedWithCurrentItem="True" FontSize ="10" MouseDoubleClick="ListBoxMyPersonalData_MouseDoubleClick"/>
+
+            <GridSplitter Grid.Column="1" Width="20" HorizontalAlignment="Stretch" />
+            <m:Map Grid.Column="2" x:Name="myMap" Mode="AerialWithLabels" MouseLeftButtonDown="myMap_MouseLeftButtonDown" CredentialsProvider="AvUbMxG1awNdAbHG8mYRSLxNFIFw_d2jHLahK2GRjAN7BIAc6TgX9NFrvlNhDFXC" />
+        </Grid>
+
+    </DockPanel>
+</Window>

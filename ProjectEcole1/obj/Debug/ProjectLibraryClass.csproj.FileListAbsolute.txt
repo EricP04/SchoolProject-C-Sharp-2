@@ -1,0 +1,101 @@
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet1\ProjetEcole1v7\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll.config
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet1\ProjetEcole1v7\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet1\ProjetEcole1v7\ProjectEcole1\bin\Debug\ProjectLibraryClass.pdb
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet1\ProjetEcole1v7\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CopyComplete
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet1\ProjetEcole1v7\ProjectEcole1\obj\Debug\ProjectLibraryClass.dll
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet1\ProjetEcole1v7\ProjectEcole1\obj\Debug\ProjectLibraryClass.pdb
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.1\ProjectEcole1\obj\Debug\ProjectLibraryClass.csprojAssemblyReference.cache
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.1\ProjectEcole1\obj\Debug\ProjectLibraryClass.dll
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.1\ProjectEcole1\obj\Debug\ProjectLibraryClass.pdb
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.1\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll.config
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.1\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.1\ProjectEcole1\bin\Debug\ProjectLibraryClass.pdb
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.1\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CopyComplete
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.2\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll.config
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.2\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.2\ProjectEcole1\bin\Debug\ProjectLibraryClass.pdb
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.2\ProjectEcole1\obj\Debug\ProjectLibraryClass.csprojAssemblyReference.cache
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.2\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CopyComplete
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.2\ProjectEcole1\obj\Debug\ProjectLibraryClass.dll
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.2\ProjectEcole1\obj\Debug\ProjectLibraryClass.pdb
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.4\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll.config
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.4\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.4\ProjectEcole1\bin\Debug\ProjectLibraryClass.pdb
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.4\ProjectEcole1\obj\Debug\ProjectLibraryClass.csprojAssemblyReference.cache
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.4\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CopyComplete
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.4\ProjectEcole1\obj\Debug\ProjectLibraryClass.dll
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.4\ProjectEcole1\obj\Debug\ProjectLibraryClass.pdb
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.5\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll.config
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.5\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.5\ProjectEcole1\bin\Debug\ProjectLibraryClass.pdb
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.5\ProjectEcole1\obj\Debug\ProjectLibraryClass.csprojAssemblyReference.cache
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.5\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CopyComplete
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.5\ProjectEcole1\obj\Debug\ProjectLibraryClass.dll
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.5\ProjectEcole1\obj\Debug\ProjectLibraryClass.pdb
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.6\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll.config
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.6\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.6\ProjectEcole1\bin\Debug\ProjectLibraryClass.pdb
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.6\ProjectEcole1\obj\Debug\ProjectLibraryClass.csprojAssemblyReference.cache
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.6\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CopyComplete
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.6\ProjectEcole1\obj\Debug\ProjectLibraryClass.dll
+C:\Users\Eric\Desktop\Bloc 2 offline\C#\Ecole\Projet2\LaboC#2.6\ProjectEcole1\obj\Debug\ProjectLibraryClass.pdb
+C:\Users\ericp\Desktop\Bloc2Offline\LaboC#2.7\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll.config
+C:\Users\ericp\Desktop\Bloc2Offline\LaboC#2.7\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll
+C:\Users\ericp\Desktop\Bloc2Offline\LaboC#2.7\ProjectEcole1\bin\Debug\ProjectLibraryClass.pdb
+C:\Users\ericp\Desktop\Bloc2Offline\LaboC#2.7\ProjectEcole1\obj\Debug\ProjectLibraryClass.csprojAssemblyReference.cache
+C:\Users\ericp\Desktop\Bloc2Offline\LaboC#2.7\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CopyComplete
+C:\Users\ericp\Desktop\Bloc2Offline\LaboC#2.7\ProjectEcole1\obj\Debug\ProjectLibraryClass.dll
+C:\Users\ericp\Desktop\Bloc2Offline\LaboC#2.7\ProjectEcole1\obj\Debug\ProjectLibraryClass.pdb
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.9\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll.config
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.9\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.9\ProjectEcole1\bin\Debug\ProjectLibraryClass.pdb
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.9\ProjectEcole1\obj\Debug\ProjectLibraryClass.csprojAssemblyReference.cache
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.9\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CopyComplete
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.9\ProjectEcole1\obj\Debug\ProjectLibraryClass.dll
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.9\ProjectEcole1\obj\Debug\ProjectLibraryClass.pdb
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.10\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll.config
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.10\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.10\ProjectEcole1\bin\Debug\ProjectLibraryClass.pdb
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.10\ProjectEcole1\obj\Debug\ProjectLibraryClass.csprojAssemblyReference.cache
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.10\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CopyComplete
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.10\ProjectEcole1\obj\Debug\ProjectLibraryClass.dll
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.10\ProjectEcole1\obj\Debug\ProjectLibraryClass.pdb
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.11\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll.config
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.11\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.11\ProjectEcole1\bin\Debug\ProjectLibraryClass.pdb
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.11\ProjectEcole1\obj\Debug\ProjectLibraryClass.csprojAssemblyReference.cache
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.11\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CopyComplete
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.11\ProjectEcole1\obj\Debug\ProjectLibraryClass.dll
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.11\ProjectEcole1\obj\Debug\ProjectLibraryClass.pdb
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.14\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll.config
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.14\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.14\ProjectEcole1\bin\Debug\ProjectLibraryClass.pdb
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.14\ProjectEcole1\obj\Debug\ProjectLibraryClass.csprojAssemblyReference.cache
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.14\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CopyComplete
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.14\ProjectEcole1\obj\Debug\ProjectLibraryClass.dll
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.14\ProjectEcole1\obj\Debug\ProjectLibraryClass.pdb
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.14\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CoreCompileInputs.cache
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.16\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll.config
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.16\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.16\ProjectEcole1\bin\Debug\ProjectLibraryClass.pdb
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.16\ProjectEcole1\obj\Debug\ProjectLibraryClass.csprojAssemblyReference.cache
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.16\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CoreCompileInputs.cache
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.16\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CopyComplete
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.16\ProjectEcole1\obj\Debug\ProjectLibraryClass.dll
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.16\ProjectEcole1\obj\Debug\ProjectLibraryClass.pdb
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.17\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll.config
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.17\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.17\ProjectEcole1\bin\Debug\ProjectLibraryClass.pdb
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.17\ProjectEcole1\obj\Debug\ProjectLibraryClass.csprojAssemblyReference.cache
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.17\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CoreCompileInputs.cache
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.17\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CopyComplete
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.17\ProjectEcole1\obj\Debug\ProjectLibraryClass.dll
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.17\ProjectEcole1\obj\Debug\ProjectLibraryClass.pdb
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.20\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll.config
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.20\ProjectEcole1\bin\Debug\ProjectLibraryClass.dll
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.20\ProjectEcole1\bin\Debug\ProjectLibraryClass.pdb
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.20\ProjectEcole1\obj\Debug\ProjectLibraryClass.csprojAssemblyReference.cache
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.20\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CoreCompileInputs.cache
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.20\ProjectEcole1\obj\Debug\ProjectLibraryClass.csproj.CopyComplete
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.20\ProjectEcole1\obj\Debug\ProjectLibraryClass.dll
+C:\Users\ericp\Desktop\Bloc2Offline\C#\Labo\Projet2\LaboC#2.20\ProjectEcole1\obj\Debug\ProjectLibraryClass.pdb
