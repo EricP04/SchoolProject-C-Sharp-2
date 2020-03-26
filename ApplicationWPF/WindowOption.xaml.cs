@@ -20,8 +20,9 @@ namespace ApplicationWPF
     {
         public Brush color;
         public static event MainWindow.BackgroundColorD BgColorChanged;
+        public static event MainWindow.ForegroundColorD FgColorChanged;
         private static string filename;
-        public WindowOption(MainWindow.BackgroundColorD d)
+        public WindowOption(MainWindow.BackgroundColorD d, MainWindow.ForegroundColorD f)
         {
             InitializeComponent( );
             SliderOpacite.Value = MainWindow.mP.Opacity;
@@ -47,6 +48,14 @@ namespace ApplicationWPF
             BgColorChanged += d;
             tbFileActuallySelected.Text = filename;
 
+            tbCouleurSelectTexte.Visibility = Visibility.Hidden;
+            RectanglePreviewTexteColor.Visibility = Visibility.Hidden;
+            lbAppliquerButtonTexte.Visibility = Visibility.Hidden;
+            lbAnnulerAppliquerButtonTexte.Visibility = Visibility.Hidden;
+            RectangleActuallySelectedTexte.Fill = MainWindow.ForegroundColor;
+            ListboxColorTextDisplayer.ItemsSource = typeof(Brushes).GetProperties();
+            FgColorChanged += f;
+            
 
         }
 
@@ -125,11 +134,35 @@ namespace ApplicationWPF
             RectanglePreviewBgColor.Fill = color;
             
         }
+        
+        private void ListboxColorTextDisplayer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Console.WriteLine("e.Source = " + e.Source.ToString());
+            ListBox lb = sender as ListBox;
+            Console.WriteLine("Selected item = " + lb.SelectedItem.ToString());
+            int index = lb.SelectedIndex;
+            Console.WriteLine("Index = " + index);
+            System.Reflection.PropertyInfo[] properties = typeof(Brushes).GetProperties();
+            Console.WriteLine("Item sélectionné = " + properties[index].Name);
+            var selectedItem = (System.Reflection.PropertyInfo)lb.SelectedItem;
+            color = (Brush)selectedItem.GetValue(null, null);
+            tbCouleurSelectTexte.Visibility = Visibility.Visible;
+            RectanglePreviewTexteColor.Visibility = Visibility.Visible;
+            lbAppliquerButtonTexte.Visibility = Visibility.Visible;
+            lbAnnulerAppliquerButtonTexte.Visibility = Visibility.Visible;
+            RectanglePreviewTexteColor.Fill = color;
+            
+        }
 
         private void lbAppliquerButton_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("AppliquerClick");
             BgColorChanged(this, new BackgroundColorEvent(color));
+        }
+        private void lbAppliquerButtonTexte_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("AppliquerClick");
+            FgColorChanged(this, new ForegroundColorEvent(color));
         }
 
         private void lbAnnulerAppliquerButton_Click(object sender, RoutedEventArgs e)

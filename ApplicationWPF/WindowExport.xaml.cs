@@ -70,93 +70,101 @@ namespace ApplicationWPF
 
         }
 
-        private void lbCartoObjExport_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            ListBox lb = sender as ListBox;
-            index = lb.SelectedIndex;
-            Console.WriteLine("Type = " + type[index].GetType());
-            Console.WriteLine("ITEM SELECTED " + type[index].ToString());
-            Console.WriteLine("ID TROUVE = " + type[index].ID);
 
-
-        }
 
         private void ButtonExport_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(tbfileName.Text))
+            if(lbCartoObjExport.SelectedItem is null)
             {
-                MessageBox.Show("Veuillez saisir un nom !", "Message Erreur", MessageBoxButton.OK);
+                MessageBox.Show("Veuillez sélectionner un item", "Erreur", MessageBoxButton.OK);
             }
             else
             {
-                if(string.IsNullOrEmpty(WindowOption.Filename))
+                index = lbCartoObjExport.SelectedIndex;
+     if (string.IsNullOrEmpty(tbfileName.Text))
                 {
-                    MessageBox.Show("Veuillez choisir le fichier où exporter vos fichier");
-                    System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
-                    fbd.ShowNewFolderButton = true;
-                    System.Windows.Forms.DialogResult result = fbd.ShowDialog();
-                    if(result == System.Windows.Forms.DialogResult.OK)
-                        WindowOption.Filename = fbd.SelectedPath;
+                    MessageBox.Show("Veuillez saisir un nom !", "Message Erreur", MessageBoxButton.OK);
                 }
-
-                string filenameExport = WindowOption.Filename + "/" + tbfileName.Text + ".csv";
-                if (index != -1)
+                else
                 {
-                    MyBook = MyApp.Workbooks.Add();
-                    /* MyBook = MyApp.Workbooks.Open("C:/Users/ericp/Desktop/Bloc2Offline/C#/Labo/Projet2/LaboC#2.14/testExport");*/
-                    MySheet = (Excel.Worksheet)MyBook.Sheets[1];
-                    MySheet.Cells.ClearContents();
-
-                    int i = 1;
-                    foreach (ICoord c in type[index].lCoord)
+                    if(string.IsNullOrEmpty(WindowOption.Filename))
                     {
-                        MySheet.Cells[i, 1] = c.X;
-                        MySheet.Cells[i, 2] = c.Y;
-                        MySheet.Cells[i, 3] = c.Description;
-                        i++;
-                    }
-                    if(type[index] is ProjectLibraryClass.Polygon)
-                    {
-                        MySheet.Cells[i, 1] = type[index].lCoord[0].X;
-                        MySheet.Cells[i, 2] = type[index].lCoord[0].Y;
-                        MySheet.Cells[i, 3] = type[index].lCoord[0].Description;
-                    }
-                    try
-                    {
-                        MyApp.DisplayAlerts = false;
-                        if (File.Exists(filenameExport))
+                        MessageBoxResult resultMB = MessageBox.Show("Veuillez choisir le fichier où exporter vos fichier","Notification",MessageBoxButton.YesNo);
+                        if (resultMB == MessageBoxResult.Yes)
                         {
-                            File.Delete(filenameExport);
+                            System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
+                            fbd.ShowNewFolderButton = true;
+                            System.Windows.Forms.DialogResult result = fbd.ShowDialog();
+                            if (result == System.Windows.Forms.DialogResult.OK)
+                                WindowOption.Filename = fbd.SelectedPath;
+                            else
+                                index = -1;
                         }
-                        MyBook.SaveAs(filenameExport);
-                        MyApp.DisplayAlerts = true;
-                        MyBook.Close();
+                        else
+                            index = -1;
+
                     }
-                    catch (Exception f)
+
+                    string filenameExport = WindowOption.Filename + "/" + tbfileName.Text + ".csv";
+                    if (index != -1)
                     {
+                        MyBook = MyApp.Workbooks.Add();
+                        /* MyBook = MyApp.Workbooks.Open("C:/Users/ericp/Desktop/Bloc2Offline/C#/Labo/Projet2/LaboC#2.14/testExport");*/
+                        MySheet = (Excel.Worksheet)MyBook.Sheets[1];
+                        MySheet.Cells.ClearContents();
+
+                        int i = 1;
+                        foreach (ICoord c in type[index].lCoord)
+                        {
+                            MySheet.Cells[i, 1] = c.X;
+                            MySheet.Cells[i, 2] = c.Y;
+                            MySheet.Cells[i, 3] = c.Description;
+                            i++;
+                        }
+                        if(type[index] is ProjectLibraryClass.Polygon)
+                        {
+                            MySheet.Cells[i, 1] = type[index].lCoord[0].X;
+                            MySheet.Cells[i, 2] = type[index].lCoord[0].Y;
+                            MySheet.Cells[i, 3] = type[index].lCoord[0].Description;
+                        }
+                        try
+                        {
+                            MyApp.DisplayAlerts = false;
+                            if (File.Exists(filenameExport))
+                            {
+                                File.Delete(filenameExport);
+                            }
+                            MyBook.SaveAs(filenameExport);
+                            MyApp.DisplayAlerts = true;
+                            MyBook.Close();
+                        }
+                        catch (Exception f)
+                        {
+                            MyApp.Quit();
+
+                            MainWindow.releaseObject(MyApp);
+                            MainWindow.releaseObject(MyBook);
+                            MainWindow.releaseObject(MyApp);
+                            MessageBox.Show("Error export : " + f.Message);
+                            Close();
+                        }
                         MyApp.Quit();
 
                         MainWindow.releaseObject(MyApp);
                         MainWindow.releaseObject(MyBook);
                         MainWindow.releaseObject(MyApp);
-                        MessageBox.Show("Error export : " + f.Message);
+                        MessageBox.Show("Export succès !", "Succes", MessageBoxButton.OK);
                         Close();
+
                     }
-                    MyApp.Quit();
+                    else
+                    {
+                        MessageBox.Show("Annulation", "Erreur", MessageBoxButton.OK);
 
-                    MainWindow.releaseObject(MyApp);
-                    MainWindow.releaseObject(MyBook);
-                    MainWindow.releaseObject(MyApp);
-                    MessageBox.Show("Export succès !", "Succes", MessageBoxButton.OK);
-                    Close();
-
-                }
-                else
-                {
-                    MessageBox.Show("Veuillez sélectionner un Item", "Erreur", MessageBoxButton.OK);
-
+                    }
                 }
             }
+           
         }
     }
 }

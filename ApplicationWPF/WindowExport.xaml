@@ -23,7 +23,8 @@
                      VerticalAlignment="Stretch" FontSize="10"
                      BorderThickness="0"
                      ScrollViewer.VerticalScrollBarVisibility="Auto"
-                     MouseDoubleClick="lbCartoObjExport_MouseDoubleClick"/>
+                     
+                     />
         </Grid>
         <Button Content="Export" VerticalAlignment="Bottom" Background="AliceBlue" Click="ButtonExport_Click" />
     </StackPanel>

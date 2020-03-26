@@ -128,6 +128,48 @@
                         <Button Grid.Row="2" x:Name="lbAppliquerButton" Content="Appliquer" Background="AliceBlue" HorizontalAlignment="Right" Click="lbAppliquerButton_Click" />
                         <Button Grid.Row="2" x:Name="lbAnnulerAppliquerButton" Content="Annuler" Background="AliceBlue" HorizontalAlignment="Left" Click="lbAnnulerAppliquerButton_Click"/>
                     </Grid>
+                    <StackPanel>
+                        <TextBlock Text="Couleur du texte" TextDecorations="Underline" HorizontalAlignment="Left"/>
+                        <Menu>
+
+                            <MenuItem Header="Couleur">
+                                <ScrollBar Name="ScrollerTexte" Orientation="Vertical"/>
+                                <ListBox  x:Name="ListboxColorTextDisplayer" SelectionChanged="ListboxColorTextDisplayer_SelectionChanged">
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel IsItemsHost="True" Orientation="Vertical"/>
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" Text="{Binding Name}" HorizontalAlignment="Left" />
+                                                <Rectangle Grid.Column="1" HorizontalAlignment="Right" Fill="{Binding Name}" Width="20" StrokeThickness="1" Height="20"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </MenuItem>
+                        </Menu>
+                    </StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" x:Name="tbActuellementSelectionneTexte" Text="Couleur actuellement sélectionné : "/>
+                        <Rectangle Grid.Row="0" x:Name="RectangleActuallySelectedTexte" Fill="AliceBlue" Height="20" Width="40" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="tbCouleurSelectTexte" Grid.Row="1" Text="Couleur sélectionné : " />
+                        <Rectangle Grid.Row="1" x:Name="RectanglePreviewTexteColor" Fill="AliceBlue" Height="20" Width="40" HorizontalAlignment="Right"/>
+                        <Button Grid.Row="2" x:Name="lbAppliquerButtonTexte" Content="Appliquer" Background="AliceBlue" HorizontalAlignment="Right" Click="lbAppliquerButtonTexte_Click" />
+                        <Button Grid.Row="2" x:Name="lbAnnulerAppliquerButtonTexte" Content="Annuler" Background="AliceBlue" HorizontalAlignment="Left" Click="lbAnnulerAppliquerButton_Click"/>
+                    </Grid>
                 </StackPanel>
             </TabItem>
         </TabControl>

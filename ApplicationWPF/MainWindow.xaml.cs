@@ -46,40 +46,51 @@ namespace ApplicationWPF
         MapPolygon maPolygon;
         private static System.Windows.Media.Brush _lbBackgroundColor;
         public delegate void BackgroundColorD(object sender, BackgroundColorEvent e);
-        public static event BackgroundColorD BgColorChanged;
+        public static event BackgroundColorD BgColorChanged; 
+        private static System.Windows.Media.Brush _lbForegroundColor;
+        public delegate void ForegroundColorD(object sender, ForegroundColorEvent e);
+        public static event ForegroundColorD FgColorChanged;
 
         public static System.Windows.Media.Brush BackgroundColor
         {
             get { return _lbBackgroundColor; }
             set { _lbBackgroundColor = value; }
         }
+        public static System.Windows.Media.Brush ForegroundColor
+        {
+            get { return _lbForegroundColor; }
+            set { _lbForegroundColor = value; }
+        }
 
         // On mettra les données de login que l'on encodera dans le premier écran (écran de login)
         static public MyPersonalMapData mP;
         public MainWindow(MyPersonalMapData m)
         {
-            mP = m;        
+            mP = new MyPersonalMapData(m.Nom,m.Prenom,m.Email);
+            foreach (ICartoObj obj in m.CartoCollection)
+            {
+                if (obj is POI)
+                    mP.AddCartObj(new POI((POI)obj));
+                if (obj is ProjectLibraryClass.Polygon)
+                    mP.AddCartObj(new ProjectLibraryClass.Polygon((ProjectLibraryClass.Polygon)obj));
+                if (obj is ProjectLibraryClass.Polyline)
+                    mP.AddCartObj(new ProjectLibraryClass.Polyline((ProjectLibraryClass.Polyline)obj));
+            }
             coordTmp = new List<ICoord>();
             _lbBackgroundColor = new SolidColorBrush(System.Windows.Media.Colors.White);
-            
+            _lbForegroundColor = new SolidColorBrush(Colors.Black);
             status = null;
             InitializeComponent();
             ListBoxMyPersonalData.ItemsSource = mP.CartoCollection;
             UpdateStatusBar("Zoom level = " +myMap.ZoomLevel.ToString());
-            ListBoxMyPersonalData.Background = Background;
+            ListBoxMyPersonalData.Background = BackgroundColor;
+            ListBoxMyPersonalData.Foreground = ForegroundColor;
             BgColorChanged += BackgroundColorHasChanged;
+            FgColorChanged += ForegrounddColorHasChanged;
             if(mP.CartoCollection.Count>0)
             {
-                foreach(ICartoObj carto in mP.CartoCollection)
-                {
-                    if (carto is POI)
-                        AjouterPushPin(carto);
-                    else
-                        if (carto is ProjectLibraryClass.Polyline)
-                        AjouterPolyline(carto);
-                    else
-                        AjouterPolygon(carto);
-                }
+                
+                RefreshMap();
             }
 
         }
@@ -116,224 +127,273 @@ namespace ApplicationWPF
         private void myMap_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             UpdateStatusBar("MouseLeftButtonDown");
-            System.Windows.Point mousePosition = e.GetPosition(myMap);
-            ICoord obj;
-            bool trouve = false;
-            List<int> index = new List<int>();
-            double distancemin,distanceTmp;
-
-            Location loc = new Location();
-            loc = myMap.ViewportPointToLocation(mousePosition);
-
-            int i = 0, distPos=0;
-            ///ISPointClose
-            ///On cherche les CartoObj proche
-            foreach (ICartoObj cartoObj in mP.CartoCollection)
+            if(status != null)
             {
-                if (cartoObj.IsPointClose(loc.Latitude,loc.Longitude, mP.Precision) == true)
+                System.Windows.Point mousePosition = e.GetPosition(myMap);
+                ICoord obj;
+                bool trouve = false;
+                List<int> index = new List<int>();
+                double distancemin,distanceTmp;
+
+                Location loc = new Location();
+                loc = myMap.ViewportPointToLocation(mousePosition);
+
+                int i = 0, distPos=0;
+                ///ISPointClose
+                ///On cherche les CartoObj proche
+                foreach (ICartoObj cartoObj in mP.CartoCollection)
                 {
-                    trouve = true;
-                    index.Add(i);
-                    //obj = cartoObj.WhichPointIsClose(e.GetPosition(myMap).X,e.GetPosition(myMap).Y);
+                    Console.WriteLine("Test : cartoObj = " + cartoObj);
+                    Console.WriteLine("location = " + loc.Latitude + " / " + loc.Longitude);
+                    if (cartoObj.IsPointClose(loc.Latitude,loc.Longitude, mP.Precision) == true)
+                    {
+                        Console.WriteLine("IS POINT CLOSE TRUE");
+                        trouve = true;
+                        index.Add(i);
+                        //obj = cartoObj.WhichPointIsClose(e.GetPosition(myMap).X,e.GetPosition(myMap).Y);
+                    }
+                    i++;
                 }
-                i++;
-            }
 
-            if(trouve)
-            {
-                Console.WriteLine("ON A TROUVE UN POINT PROCHE");
-                ///On va devoir trouver quel CartoObj est le plus proche
-                ICoord[] objtmp = new ICoord[index.Count];
+                if(trouve)
+                {
+                    Console.WriteLine("ON A TROUVE UN POINT PROCHE");
+                    ///On va devoir trouver quel CartoObj est le plus proche
+                    ICoord[] objtmp = new ICoord[index.Count];
                 
-                i = 0;
-               for(int j = 0;j<index.Count;j++)
-                {
-
-                    objtmp[i] = mP.CartoCollection[index[j]].WhichPointIsClose(loc.Latitude,loc.Longitude);
-                    i += 1;
-                }
-                ///Comparer la distance entre chaque
-                i = 0;
-                distancemin = -1;
-
-                foreach (ICoord coord in objtmp)
-                {
-                    Console.WriteLine("Comparaison avec le point : " + coord.X+"/"+coord.Y) ;
-                    Console.WriteLine("Point click : " + loc.Latitude+"/"+ loc.Longitude);
-                    distanceTmp = MathUtil.DistanceDeuxPoints(coord.X, coord.Y, loc.Latitude, loc.Longitude);
-                    if (distancemin == -1)
+                    i = 0;
+                   for(int j = 0;j<index.Count;j++)
                     {
-                        distancemin = distanceTmp;
-                        distPos = i;
+
+                        objtmp[i] = mP.CartoCollection[index[j]].WhichPointIsClose(loc.Latitude,loc.Longitude);
+                        i += 1;
                     }
-                    if (distancemin > distanceTmp)
+                    ///Comparer la distance entre chaque
+                    i = 0;
+                    distancemin = -1;
+
+                    foreach (ICoord coord in objtmp)
                     {
-                        distancemin = distanceTmp;
-                        distPos = i;
+                        Console.WriteLine("Comparaison avec le point : " + coord.X+"/"+coord.Y) ;
+                        Console.WriteLine("Point click : " + loc.Latitude+"/"+ loc.Longitude);
+                        distanceTmp = MathUtil.DistanceDeuxPoints(coord.X, coord.Y, loc.Latitude, loc.Longitude);
+                        if (distancemin == -1)
+                        {
+                            distancemin = distanceTmp;
+                            distPos = i;
+                        }
+                        if (distancemin > distanceTmp)
+                        {
+                            distancemin = distanceTmp;
+                            distPos = i;
+                        }
+                        i += 1;
+
                     }
-                    i += 1;
-
-                }
-                Console.WriteLine("Point le plus proche : " + objtmp[distPos].X + "/" + objtmp[distPos].Y);
-                ///Arriver ici, nous avons les coordonnées du point le plus proche
-                if(objtmp[distPos] is POI)
-                {
-                    if(RBPoi.IsChecked == true)
+                    Console.WriteLine("Point le plus proche : " + objtmp[distPos].X + "/" + objtmp[distPos].Y);
+                    ///Arriver ici, nous avons les coordonnées du point le plus proche
+                    if(objtmp[distPos] is POI)
                     {
-                        ///Pas de superposition de pushpin
-                        loc = new Location();
-                        loc = myMap.ViewportPointToLocation(mousePosition);
-                        obj = new POI(loc.Latitude, loc.Longitude);
+                        if(RBPoi.IsChecked == true)
+                        {
+                            ///Pas de superposition de pushpin
+                            loc = new Location();
+                            loc = myMap.ViewportPointToLocation(mousePosition);
+                            obj = new POI(loc.Latitude, loc.Longitude);
 
+                        }
+                        else
+                        {
+                            obj = objtmp[distPos] ;
+                            loc = new Location(obj.X, obj.Y);
+
+                        }
                     }
                     else
                     {
-                        obj = objtmp[distPos];
-                        loc = new Location(obj.X, obj.Y);
-
-                    }
-                }
-                else
-                {
-                obj = objtmp[distPos];
+                        if(RBPoi.IsChecked == true)
+                        {
+                            obj = new POI(objtmp[distPos].X, objtmp[distPos].Y);
+                        }
+                        else
+                            obj = objtmp[distPos];
                 
-                loc = new Location(obj.X, obj.Y);
+                    loc = new Location(obj.X, obj.Y);
             
-                }
+                    }
                 
-            }
-            else
-            {
-                Console.WriteLine("ON A PAS TROUVE DE POINT PROCHE");
-                loc = new Location();
-                loc = myMap.ViewportPointToLocation(mousePosition);
-                Console.WriteLine("Loc = " + loc.Latitude + "/ " + loc.Longitude);
-                if (RBPoi.IsChecked == true)
-                {
-                    obj = new POI(loc.Latitude, loc.Longitude);
                 }
                 else
-                    obj = new Coordonnees(loc.Latitude, loc.Longitude) ;
+                {
+                    Console.WriteLine("ON A PAS TROUVE DE POINT PROCHE");
+                    loc = new Location();
+                    loc = myMap.ViewportPointToLocation(mousePosition);
+                    Console.WriteLine("Loc = " + loc.Latitude + "/ " + loc.Longitude);
+                    if (RBPoi.IsChecked == true)
+                    {
+                        obj = new POI(loc.Latitude, loc.Longitude);
+                    }
+                    else
+                        obj = new Coordonnees(loc.Latitude, loc.Longitude) ;
                
 
-            }
-            index.Clear();
+                }
+                index.Clear();
             
-            Console.WriteLine("Location = ", loc.Longitude+ " / "+ loc.Latitude);
-            switch(status)
-            {
-                case "Créer":
-                    {
-                        UpdateStatusBar("MouseLeftButtonDownCréer");
-
-                        if (RBPoi.IsChecked == true)
+                Console.WriteLine("Location = ", loc.Longitude+ " / "+ loc.Latitude);
+                switch(status)
+                {
+                    case "Créer":
                         {
-                            Pushpin pin = new Pushpin();
-                            pin.Location = loc;
-                            myMap.Children.Add(pin);
-                            mP.AddCartObj(obj as POI);
-                            Console.WriteLine("Test après add : "+ mP.CartoCollection.Last().lCoord.Last());
+                            UpdateStatusBar("MouseLeftButtonDownCréer");
 
-                            UpdateStatusBar(mP.CartoCollection.Last().ToString()) ;
-                            //ListBoxMyPersonalData.Items.Add(new POI(loc.Latitude,loc.Longitude));
-                        }
-                        if(RBPolyline.IsChecked == true)
-                        {
-                            if(coordTmp.Count == 0)
+                            if (RBPoi.IsChecked == true)
                             {
-                                maPolyline = new MapPolyline();
-                                myMap.Children.Add(maPolyline);
-                                locCol = new LocationCollection();
+                                Pushpin pin = new Pushpin();
+                                pin.Location = loc;
+                                myMap.Children.Add(pin);
+                                mP.AddCartObj(obj as POI);
+                                Console.WriteLine("Test après add : "+ mP.CartoCollection.Last().lCoord.Last());
 
+                                UpdateStatusBar(mP.CartoCollection.Last().ToString()) ;
+                                //ListBoxMyPersonalData.Items.Add(new POI(loc.Latitude,loc.Longitude));
+                            }
+                            if(RBPolyline.IsChecked == true)
+                            {
+                                if(coordTmp.Count == 0)
+                                {
+                                    maPolyline = new MapPolyline();
+                                    myMap.Children.Add(maPolyline);
+                                    locCol = new LocationCollection();
+                                    maPolyline.Locations = locCol;
+                                    maPolyline.StrokeThickness = mP.lineEp;
+                                    maPolyline.Stroke = ToBrush(mP.Contour);
+                                    maPolyline.Opacity = mP.Opacity;
+
+                                }
+
+
+                                if (coordTmp.Count>2)
+                                {
+                                    if((coordTmp[0].X <= obj.X + mP.Precision && coordTmp[0].X >= obj.X - mP.Precision) && (coordTmp[0].Y <= obj.Y + mP.Precision && coordTmp[0].Y >= obj.Y- mP.Precision))
+                                    {
+                                        ///Notre polyline est revenu a son point de départ -> Polygon ?
+                                        MessageBoxResult res = MessageBox.Show("Voulez-vous en faire un polygon ? ", "Polygon", MessageBoxButton.YesNo);
+                                        if(res == MessageBoxResult.Yes)
+                                        {
+                                            ///On va enfaire un polygon
+                                            
+                                            maPolygon = new MapPolygon();
+                                            myMap.Children.Add(maPolygon);
+                                            maPolygon.Locations = locCol;
+                                            maPolygon.StrokeThickness = mP.lineEp;
+                                            maPolygon.Stroke = ToBrush(mP.Contour);
+                                            maPolygon.Fill = ToBrush(mP.Remplissage);
+                                            maPolygon.Opacity = mP.Opacity;
+                                            maPolygon.Locations = maPolyline.Locations;
+                                            RBPolygon.IsChecked = true;
+                                            RBPolyline.IsChecked = false;
+                                            ButtonFinirTrace_Click(null, null);
+
+                                            return;
+                                        }
+                                    }
+                                }
+                                maPolyline.Locations.Add(loc);
+
+                                coordTmp.Add(obj);
 
                             }
-                            coordTmp.Add(obj);
-                            maPolyline.Locations = locCol;
-                            maPolyline.StrokeThickness = mP.lineEp;
-                            maPolyline.Stroke = ToBrush(mP.Contour);
-                            maPolyline.Opacity = 1;
-                            maPolyline.Locations.Add(loc);
-                            
-                        }
-                        if(RBPolygon.IsChecked == true)
-                        {
-                            if (coordTmp.Count == 0)
+                            if (RBPolygon.IsChecked == true)
                             {
-                                maPolygon = new MapPolygon();
-                                myMap.Children.Add(maPolygon);
-                                locCol = new LocationCollection();
+                                if (coordTmp.Count == 0)
+                                {
+                                    maPolygon = new MapPolygon();
+                                    myMap.Children.Add(maPolygon);
+                                    locCol = new LocationCollection();
+                                    maPolygon.Locations = locCol;
+                                    maPolygon.StrokeThickness = mP.lineEp;
+                                    maPolygon.Stroke = ToBrush(mP.Contour);
+                                    maPolygon.Fill = ToBrush(mP.Remplissage);
+                                    maPolygon.Opacity = mP.Opacity;
 
+                                }
+                                coordTmp.Add(obj);
 
+                                maPolygon.Locations.Add(loc);
                             }
-                            coordTmp.Add(obj);
-                            maPolygon.Locations = locCol;
-                            maPolygon.StrokeThickness = mP.lineEp;
-                            maPolygon.Stroke = ToBrush(mP.Contour);
-                            maPolygon.Fill = ToBrush(mP.Remplissage);
-                            maPolygon.Opacity = mP.Opacity;
-                            maPolygon.Locations.Add(loc);
+                            break;
                         }
-                        break;
-                    }
-                case "Supprimer":
-                    {
-                        Console.WriteLine("Supprimer");
-                        bool find = false;
-                        int j = 0, a = 0;
-                        ///On sait sur quel point/figure on clique, on doit retrouver la position de chaque
-                        while(j<mP.CartoCollection.Count && find == false)
+                    case "Supprimer":
                         {
-                            a = 0;
-                            while(a<mP.CartoCollection[j].lCoord.Count && find == false)
+                            Console.WriteLine("Supprimer");
+                            if (trouve)
+                            { 
+                                bool find = false;
+                                int j = 0, a = 0;
+                        
+                                ///On sait sur quel point/figure on clique, on doit retrouver la position de chaque
+                                while(j<mP.CartoCollection.Count && find == false)
+                                {
+                                    a = 0;
+                                    while(a<mP.CartoCollection[j].lCoord.Count && find == false)
+                                    {
+                                        if (mP.CartoCollection[j].lCoord[a].X == obj.X && mP.CartoCollection[j].lCoord[a].Y == obj.Y)
+                                            find = true;
+                                        else
+                                            a++;
+                                    }
+                                    if (!find)
+                                        j++;
+                                }
+                                if (find)
+                                {
+                                    Console.WriteLine("TROUVE");
+                                    // J contient l'index de la figure contenant le point sélectionné
+                                    myMap.Children.Remove(myMap.Children[j]);
+                                    mP.CartoCollection.Remove(mP.CartoCollection[j]);
+                                    //ListBoxMyPersonalData.Items.Refresh();
+                                }                        
+                            }
+
+                            break;
+                        }
+                    case "Modifier":
+                        {
+                            ///On va récupérer l'index
+                            if(trouve)
                             {
-                                if (mP.CartoCollection[j].lCoord[a].X == obj.X && mP.CartoCollection[j].lCoord[a].Y == obj.Y)
-                                    find = true;
-                                else
-                                    a++;
-                            }
-                            if (!find)
-                                j++;
-                        }
-                        if (find)
-                        {
-                            Console.WriteLine("TROUVE");
-                            // J contient l'index de la figure contenant le point sélectionné
-                            myMap.Children.Remove(myMap.Children[j]);
-                            mP.CartoCollection.Remove(mP.CartoCollection[j]);
-                            //ListBoxMyPersonalData.Items.Refresh();
-                        }
-                        break;
-                    }
-                case "Modifier":
-                    {
-                        ///On va récupérer l'index
-                        bool find = false;
-                        int j = 0, a = 0;
-                        while (j < mP.CartoCollection.Count && find == false)
-                        {
-                            a = 0;
-                            while (a < mP.CartoCollection[j].lCoord.Count && find == false)
-                            {
-                                if (mP.CartoCollection[j].lCoord[a].X == obj.X && mP.CartoCollection[j].lCoord[a].Y == obj.Y)
-                                    find = true;
-                                else
-                                    a++;
-                            }
-                            if (!find)
-                                j++;
-                        }
-                        if(find)
-                        {
-                            WindowItemProperty wItem = new WindowItemProperty(j);
-                            wItem.ShowDialog();
+                                bool find = false;
+                                int j = 0, a = 0;
+                                while (j < mP.CartoCollection.Count && find == false)
+                                {
+                                    a = 0;
+                                    while (a < mP.CartoCollection[j].lCoord.Count && find == false)
+                                    {
+                                        if (mP.CartoCollection[j].lCoord[a].X == obj.X && mP.CartoCollection[j].lCoord[a].Y == obj.Y)
+                                            find = true;
+                                        else
+                                            a++;
+                                    }
+                                    if (!find)
+                                        j++;
+                                }
+                                if(find)
+                                {
+                                    WindowItemProperty wItem = new WindowItemProperty(j);
+                                    wItem.ShowDialog();
 
-                            ListBoxMyPersonalData.Items.Refresh();
-                            RefreshMap();
-                        }
+                                    ListBoxMyPersonalData.Items.Refresh();
+                                    RefreshMap();
+                                }
+                            }
 
-                        break;
-                    }
+
+                            break;
+                        }
+                }
             }
+
         }
 
         private void UpdateStatusBar(string s)
@@ -382,7 +442,7 @@ namespace ApplicationWPF
             if (RBPolyline.IsChecked == true)
             {
 
-                mP.AddCartObj(new ProjectLibraryClass.Polyline(mP.lineEp, mP.Contour, coordTmp));
+                mP.AddCartObj(new ProjectLibraryClass.Polyline(mP.lineEp, mP.Contour,mP.Opacity, coordTmp));
 
 
             }
@@ -468,7 +528,7 @@ namespace ApplicationWPF
             ProjectLibraryClass.Polyline polTmp = carto as ProjectLibraryClass.Polyline;
             poly.StrokeThickness = polTmp.Epaisseur;
             poly.Stroke = ToBrush(polTmp.Couleur);
-            poly.Opacity = mP.Opacity;
+            poly.Opacity = polTmp.Opacite;
             myMap.Children.Add(poly);
 
 
@@ -493,7 +553,7 @@ namespace ApplicationWPF
         private void MenuItemOption_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("BoutonOptionClick");
-            WindowOption wOption = new WindowOption(BgColorChanged);
+            WindowOption wOption = new WindowOption(BgColorChanged,FgColorChanged);
             wOption.Show();
             RefreshMap();
         }
@@ -503,6 +563,14 @@ namespace ApplicationWPF
             Console.WriteLine("BackgroundColorHasChanged");
             BackgroundColor = e.bg;
             ListBoxMyPersonalData.Background = BackgroundColor;
+
+
+        } 
+        public void ForegrounddColorHasChanged(object sender, ForegroundColorEvent e)
+        {
+            Console.WriteLine("BackgroundColorHasChanged");
+            ForegroundColor = e.fg;
+            ListBoxMyPersonalData.Foreground = ForegroundColor;
 
 
         }
@@ -600,7 +668,7 @@ namespace ApplicationWPF
                  }
                 else
                 {
-                    poly = new ProjectLibraryClass.Polyline(mP.LineEp, mP.Contour, lCoord);
+                    poly = new ProjectLibraryClass.Polyline(mP.LineEp, mP.Contour,mP.Opacity, lCoord);
                     AjouterPolyline(poly);
                 }
                 mP.AddCartObj(poly);
@@ -697,10 +765,19 @@ namespace ApplicationWPF
     public class BackgroundColorEvent : EventArgs
     {
         public System.Windows.Media.Brush bg { get; set; }
+         
        public BackgroundColorEvent(System.Windows.Media.Brush b)
         {
            bg = b;
 
+        }
+    }
+    public class ForegroundColorEvent : EventArgs
+    {
+        public System.Windows.Media.Brush fg { get; set; }
+        public ForegroundColorEvent(System.Windows.Media.Brush b)
+        {
+            fg = b;
         }
     }
 

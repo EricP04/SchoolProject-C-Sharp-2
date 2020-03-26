@@ -45,9 +45,8 @@ namespace ProjectLibraryClass
         public virtual string Description
         {
             get { return "/"; }
-            set {
-                Console.WriteLine("On est ici");
-                new POI(value,x,y) ; }
+            set { }
+
         }
     }
 }

@@ -82,5 +82,11 @@ namespace ProjectLibraryClass
             get { return prenom; }
             set { prenom = value; }
         }
+        public string Email
+        {
+            get { return email; }
+            
+        }
+
     }
 }

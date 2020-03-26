@@ -84,7 +84,7 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
-                                            <TextBox x:Name="TextPropertyDesc" Text="{Binding Description}" TextChanged="TextProperty_TextChanged"/>
+                                            <TextBox x:Name="TextPropertyDesc" Text="{Binding Description}" GotFocus="TextPropertyDesc_GotFocus" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
@@ -143,6 +143,21 @@
                         <Slider x:Name="SliderRemplirB" IsSnapToTickEnabled="True" Maximum="255" TickPlacement="BottomRight" TickFrequency="5" ValueChanged="SliderRemplirB_ValueChanged"/>
 
 
+                    </StackPanel>
+                </TabItem>
+                <TabItem x:Name="tiMore" Header="+">
+                    <StackPanel Orientation="Vertical">
+                        <Grid VerticalAlignment="Top">
+                            <TextBlock Text="Opacite" TextDecorations="Underline" HorizontalAlignment="Left"/>
+                            <TextBlock x:Name="TbOpacite" Text="{Binding ElementName=SliderOpacite, Path=Value}" HorizontalAlignment="Right"/>
+                        </Grid>
+                        <Slider x:Name="SliderOpacite" Maximum="1" TickPlacement="BottomRight" TickFrequency="0.1" IsSnapToTickEnabled="True"  ValueChanged="SliderOpacite_ValueChanged"/>
+                        
+                        <Grid VerticalAlignment="Top">
+                            <TextBlock Text="Epaisseur" TextDecorations="Underline" HorizontalAlignment="Left"/>
+                            <TextBlock x:Name="TbEpaisseur" Text="{Binding ElementName=SliderEpaisseur, Path =Value}" HorizontalAlignment="Right"/>
+                        </Grid>
+                        <Slider x:Name="SliderEpaisseur" IsSnapToTickEnabled="True" Maximum="25" TickPlacement="BottomRight" TickFrequency="1"  ValueChanged="SliderEpaisseur_ValueChanged"/>
                     </StackPanel>
                 </TabItem>
             </TabControl>

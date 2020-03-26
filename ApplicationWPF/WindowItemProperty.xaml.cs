@@ -14,6 +14,11 @@ using System.Windows.Shapes;
 using ProjectLibraryClass;
 using Microsoft.Maps.MapControl.WPF;
 using Microsoft.Maps.MapControl;
+using System.Collections.ObjectModel;
+using System.Windows.Forms;
+using Textbox = System.Windows.Controls.TextBox;
+using TextBox = System.Windows.Controls.TextBox;
+
 namespace ApplicationWPF
 {
     /// <summary>
@@ -26,14 +31,12 @@ namespace ApplicationWPF
         MapPolygon maPolygon;
         MapPolyline maPolyline;
         int id;
-        List<double> xBase;
-        List<double> yBase;
-        List<string> descBase;
+
         private System.Drawing.Color remplissageBase;
         private System.Drawing.Color contourBase;
         ProjectLibraryClass.Polyline polyTmp;
         ProjectLibraryClass.Polygon polTmp;
-
+        List<ICoord> lCoordBase;
         public WindowItemProperty(int index)
         {
             
@@ -41,78 +44,87 @@ namespace ApplicationWPF
             InitializeComponent();
             tIContour.Visibility = Visibility.Hidden;
             tIRemplissage.Visibility = Visibility.Hidden;
+            
             ListBoxPropertyX.ItemsSource = MainWindow.mP.CartoCollection[index].lCoord;
             ListBoxPropertyY.ItemsSource = MainWindow.mP.CartoCollection[index].lCoord;
             ListBoxPropertyDesc.ItemsSource = MainWindow.mP.CartoCollection[index].lCoord;
-              xBase = new List<Double>(MainWindow.mP.CartoCollection[index].lCoord.Select(x => x.X));
-              yBase = new List<Double>(MainWindow.mP.CartoCollection[index].lCoord.Select(x => x.Y));
-              descBase = new List<string>(MainWindow.mP.CartoCollection[index].lCoord.Select(x => x.Description));
+            lCoordBase = new List<ICoord>(MainWindow.mP.CartoCollection[index].lCoord);
+
             if (MainWindow.mP.CartoCollection[index] is POI)
             {
                 pin = new Pushpin();
                 pin.Location = new Location(MainWindow.mP.CartoCollection[index].lCoord[0].X, MainWindow.mP.CartoCollection[index].lCoord[0].Y);
                 myMapProperty.Children.Add(pin);
+                tiMore.Visibility = Visibility.Hidden;
 
             }
-            if(MainWindow.mP.CartoCollection[index] is ProjectLibraryClass.Polygon)
+            else
             {
-                polTmp = MainWindow.mP.CartoCollection[index] as ProjectLibraryClass.Polygon;
-                maPolygon = new MapPolygon();
-                myMapProperty.Children.Add(maPolygon);
-                maPolygon.Locations = new LocationCollection();
-                for(int i =0;i< MainWindow.mP.CartoCollection[index].lCoord.Count();i++)
+                if(MainWindow.mP.CartoCollection[index] is ProjectLibraryClass.Polygon)
                 {
-                    maPolygon.Locations.Add(new Location(MainWindow.mP.CartoCollection[index].lCoord[i].X, MainWindow.mP.CartoCollection[index].lCoord[i].Y));
-                }
                 
-                maPolygon.Fill = MainWindow.ToBrush(polTmp.Rempli);
-                maPolygon.Stroke = MainWindow.ToBrush(polTmp.Contour);
-                remplissageBase = polTmp.Rempli;
-                contourBase = polTmp.Contour;
-                maPolygon.Opacity = polTmp.Opacite;
-                maPolygon.StrokeThickness = polTmp.Epaisseur;
-                tIContour.Visibility = Visibility.Visible;
-                tIRemplissage.Visibility = Visibility.Visible;
+                    polTmp = MainWindow.mP.CartoCollection[index] as ProjectLibraryClass.Polygon;
+                    maPolygon = new MapPolygon();
+                    myMapProperty.Children.Add(maPolygon);
+                    maPolygon.Locations = new LocationCollection();
+                    for(int i =0;i< MainWindow.mP.CartoCollection[index].lCoord.Count();i++)
+                    {
+                        maPolygon.Locations.Add(new Location(MainWindow.mP.CartoCollection[index].lCoord[i].X, MainWindow.mP.CartoCollection[index].lCoord[i].Y));
+                    }
+                
+                    maPolygon.Fill = MainWindow.ToBrush(polTmp.Rempli);
+                    maPolygon.Stroke = MainWindow.ToBrush(polTmp.Contour);
+                    remplissageBase = polTmp.Rempli;
+                    contourBase = polTmp.Contour;
+                    maPolygon.Opacity = polTmp.Opacite;
+                    maPolygon.StrokeThickness = polTmp.Epaisseur;
+                    tIContour.Visibility = Visibility.Visible;
+                    tIRemplissage.Visibility = Visibility.Visible;
 
-                SliderContourR.Value = polTmp.Contour.R;
-                SliderContourG.Value = polTmp.Contour.G;
-                SliderContourB.Value = polTmp.Contour.B;
-                PreviewColorContour.DataContext = MainWindow.ToBrush(polTmp.Contour);
+                    SliderContourR.Value = polTmp.Contour.R;
+                    SliderContourG.Value = polTmp.Contour.G;
+                    SliderContourB.Value = polTmp.Contour.B;
+                    PreviewColorContour.DataContext = MainWindow.ToBrush(polTmp.Contour);
 
-                SliderRemplirR.Value = polTmp.Rempli.R;
-                SliderRemplirG.Value = polTmp.Rempli.G;
-                SliderRemplirB.Value = polTmp.Rempli.B;
-                PreviewColorRemplissage.DataContext = MainWindow.ToBrush(polTmp.Rempli);
+                    SliderRemplirR.Value = polTmp.Rempli.R;
+                    SliderRemplirG.Value = polTmp.Rempli.G;
+                    SliderRemplirB.Value = polTmp.Rempli.B;
+                    PreviewColorRemplissage.DataContext = MainWindow.ToBrush(polTmp.Rempli);
 
-
-
-            }
-            if (MainWindow.mP.CartoCollection[index] is ProjectLibraryClass.Polyline)
-            {
-                polyTmp = MainWindow.mP.CartoCollection[index] as ProjectLibraryClass.Polyline;
-
-                contourBase = polyTmp.Couleur;
-
-                maPolyline = new MapPolyline();
-                myMapProperty.Children.Add(maPolyline);
-                maPolyline.Locations = new LocationCollection();
-                for (int i = 0; i < MainWindow.mP.CartoCollection[index].lCoord.Count(); i++)
-                {
-                    maPolyline.Locations.Add(new Location(MainWindow.mP.CartoCollection[index].lCoord[i].X, MainWindow.mP.CartoCollection[index].lCoord[i].Y));
+                    SliderEpaisseur.Value = ((ProjectLibraryClass.Polygon)MainWindow.mP.CartoCollection[index]).Epaisseur;
+                    SliderOpacite.Value = ((ProjectLibraryClass.Polygon)MainWindow.mP.CartoCollection[index]).Opacite;
                 }
-                maPolyline.StrokeThickness = polyTmp.Epaisseur;
-                maPolyline.Stroke = MainWindow.ToBrush(polyTmp.Couleur);
-                maPolyline.Opacity = 1;
-                myMapProperty.Center = new Location(MainWindow.mP.CartoCollection[index].lCoord[0].X, MainWindow.mP.CartoCollection[index].lCoord[0].Y);
-                myMapProperty.ZoomLevel = 2;
-                tIContour.Visibility = Visibility.Visible;
+                if (MainWindow.mP.CartoCollection[index] is ProjectLibraryClass.Polyline)
+                {
+                    polyTmp = MainWindow.mP.CartoCollection[index] as ProjectLibraryClass.Polyline;
 
-                SliderContourR.Value = polyTmp.Couleur.R;
-                SliderContourG.Value = polyTmp.Couleur.G;
-                SliderContourB.Value = polyTmp.Couleur.B;
-                PreviewColorContour.DataContext = MainWindow.ToBrush(polyTmp.Couleur);
+                    contourBase = polyTmp.Couleur;
 
+                    maPolyline = new MapPolyline();
+                    myMapProperty.Children.Add(maPolyline);
+                    maPolyline.Locations = new LocationCollection();
+                    for (int i = 0; i < MainWindow.mP.CartoCollection[index].lCoord.Count(); i++)
+                    {
+                        maPolyline.Locations.Add(new Location(MainWindow.mP.CartoCollection[index].lCoord[i].X, MainWindow.mP.CartoCollection[index].lCoord[i].Y));
+                    }
+                    maPolyline.StrokeThickness = polyTmp.Epaisseur;
+                    maPolyline.Stroke = MainWindow.ToBrush(polyTmp.Couleur);
+                    maPolyline.Opacity = polyTmp.Opacite;
+                    myMapProperty.Center = new Location(MainWindow.mP.CartoCollection[index].lCoord[0].X, MainWindow.mP.CartoCollection[index].lCoord[0].Y);
+                    myMapProperty.ZoomLevel = 2;
+                    tIContour.Visibility = Visibility.Visible;
+
+                    SliderContourR.Value = polyTmp.Couleur.R;
+                    SliderContourG.Value = polyTmp.Couleur.G;
+                    SliderContourB.Value = polyTmp.Couleur.B;
+                    PreviewColorContour.DataContext = MainWindow.ToBrush(polyTmp.Couleur);
+                    SliderEpaisseur.Value = ((ProjectLibraryClass.Polyline)MainWindow.mP.CartoCollection[index]).Epaisseur;
+                    SliderOpacite.Value = ((ProjectLibraryClass.Polyline)MainWindow.mP.CartoCollection[index]).Opacite;
+
+
+                }
             }
+
 
         }
         private void SliderContourR_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -182,13 +194,14 @@ namespace ApplicationWPF
         }
         private void AnnulerBouton_Click(object sender, RoutedEventArgs e)
         {
-            for(int i =0;i<MainWindow.mP.CartoCollection[id].lCoord.Count();i++)
-            {
-                MainWindow.mP.CartoCollection[id].lCoord[i].X = xBase[i];
-                MainWindow.mP.CartoCollection[id].lCoord[i].Y = yBase[i];
-                MainWindow.mP.CartoCollection[id].lCoord[i].Description = descBase[i];
+            // for(int i =0;i<MainWindow.mP.CartoCollection[id].lCoord.Count();i++)
+            //{
+            /*MainWindow.mP.CartoCollection[id].lCoord[i].X = xBase[i];
+            MainWindow.mP.CartoCollection[id].lCoord[i].Y = yBase[i];
+            MainWindow.mP.CartoCollection[id].lCoord[i].Description = descBase[i];*/
+            MainWindow.mP.CartoCollection[id].lCoord = lCoordBase;
 
-            }
+           // }
             if(MainWindow.mP.CartoCollection[id] is ProjectLibraryClass.Polygon)
             {
                 polTmp.Rempli = remplissageBase;
@@ -219,23 +232,7 @@ namespace ApplicationWPF
             Close();
         }
 
-        private void TextProperty_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Console.WriteLine("Count = " + ListBoxPropertyDesc.Items.Count);
-            int index = 0;
-            /*foreach(TextBox item in ListBoxPropertyDesc.Items)
-            {
-                Console.WriteLine("Var : "+ item.ToString());  
-            }*/
-            Console.WriteLine("Position de l'objet : " + index);
-            TextBox lb = sender as TextBox;
-            Console.WriteLine("Test : " + lb.Text) ;
-            Console.WriteLine("Coucou :  " + sender.ToString()); ;
-            Console.WriteLine("TextPropertyChanged");
-            
-            Console.WriteLine("Object type = " + e.GetType());
-            Console.WriteLine("ItemChanged : " + e.ToString() );
-        }
+
 
         private void Effacer_Click(object sender, RoutedEventArgs e)
         {
@@ -282,7 +279,7 @@ namespace ApplicationWPF
                 }
                 maPolyline.StrokeThickness = polyTmp.Epaisseur;
                 maPolyline.Stroke = MainWindow.ToBrush(polyTmp.Couleur);
-                maPolyline.Opacity = MainWindow.mP.Opacity;
+                maPolyline.Opacity = polyTmp.Opacite;
             }
             myMapProperty.Center = new Location(MainWindow.mP.CartoCollection[id].lCoord[0].X, MainWindow.mP.CartoCollection[id].lCoord[0].Y);
             myMapProperty.ZoomLevel = 2;
@@ -291,5 +288,85 @@ namespace ApplicationWPF
         }
 
 
+
+        private void TextPropertyDesc_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Item sélectionné");
+            TextBox tb = sender as TextBox;
+
+            if (!(tb.DataContext is POI))
+            {
+                Console.WriteLine("C est une coordonnée");
+                Console.WriteLine("Test : " + tb.DataContext);
+                MessageBoxResult result = System.Windows.MessageBox.Show("Voulez-vous modifier la description de la coordonnée séléctionné ?", "Changement demandé",MessageBoxButton.YesNo);
+                if(result == MessageBoxResult.Yes)
+                {
+
+                    Coordonnees co = tb.DataContext as Coordonnees;
+                    ///Pour essayer de respecter les premières consignes, je n'ai pas voulu rajouter de description aux coordonnées, juste une valeur en lecture seule pour un meilleur rendu visuel, mais
+                    ///du coup quand le texte change, s'il s'agit d'une coordonnée, je dois le transformer en POI(qui , contrairement aux coordonnées, ont une description modifiable)
+                    int i = 0;
+                    foreach (ICoord obj in MainWindow.mP.CartoCollection[id].lCoord)
+                    {
+                        if (((CartoObj)obj).ID == co.ID)
+                            break;
+                        else
+                            i++;
+                    }
+                    if (i < MainWindow.mP.CartoCollection[id].lCoord.Count)
+                    {
+                        Console.WriteLine("I = " + i);
+                        POI p = new POI(MainWindow.mP.CartoCollection[id].lCoord[i].X, MainWindow.mP.CartoCollection[id].lCoord[i].Y);
+                        MainWindow.mP.CartoCollection[id].lCoord.Remove(MainWindow.mP.CartoCollection[id].lCoord[i]);
+                        MainWindow.mP.CartoCollection[id].lCoord.Insert(i, p);
+                        Console.WriteLine("TEST = ");
+                        ListBoxPropertyDesc.ItemsSource = MainWindow.mP.CartoCollection[id].lCoord;
+                        ListBoxPropertyDesc.Items.Refresh();
+
+                    }
+                    tb.GotFocus -= TextPropertyDesc_GotFocus;
+
+                }
+                else
+                {
+                    tb.IsReadOnly = true;
+                }
+
+
+
+            }
+            else
+                Console.WriteLine("C EST UN POI");
+
+        }
+
+        private void SliderOpacite_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if(MainWindow.mP.CartoCollection[id] is ProjectLibraryClass.Polygon)
+            {
+                polTmp.Opacite = SliderOpacite.Value;
+                myMapProperty.UpdateLayout();
+            }
+            if (MainWindow.mP.CartoCollection[id] is ProjectLibraryClass.Polyline)
+            {
+                polyTmp.Opacite = SliderOpacite.Value;
+                myMapProperty.UpdateLayout();
+            }
+        }
+
+
+        private void SliderEpaisseur_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (MainWindow.mP.CartoCollection[id] is ProjectLibraryClass.Polygon)
+            {
+                polTmp.Epaisseur = SliderEpaisseur.Value;
+                myMapProperty.UpdateLayout();
+            }
+            if (MainWindow.mP.CartoCollection[id] is ProjectLibraryClass.Polyline)
+            {
+                polyTmp.Epaisseur = SliderEpaisseur.Value;
+                myMapProperty.UpdateLayout();
+            }
+        }
     }
 }

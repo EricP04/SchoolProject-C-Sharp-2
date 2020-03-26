@@ -53,7 +53,14 @@ namespace ProjectLibraryClass
         }
         public Polygon(Polygon poly) : this()
         {
-            lCoordonnees = poly.lCoord;
+            for (int i = 0; i < poly.lCoord.Count; i++)
+            {
+                if (poly.lCoord[i] is POI)
+                    lCoordonnees.Add(new POI(poly.lCoord[i].Description, poly.lCoord[i].X, poly.lCoord[i].Y));
+                else
+                    lCoordonnees.Add(new Coordonnees(poly.lCoord[i].X, poly.lCoord[i].Y));
+
+            }
             remplissage = poly.Rempli;
             contour = poly.Contour;
             opacite = poly.Opacite;

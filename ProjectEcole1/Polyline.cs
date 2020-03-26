@@ -13,29 +13,38 @@ namespace ProjectLibraryClass
     {
         private List<ICoord> lCoordonnees;
         private Color color;
+        private double opacite;
         private double epaisseur;
         public Polyline() : base()
         {
             lCoordonnees = new List<ICoord>();
             color = Color.White;
-            epaisseur = 0;
+            epaisseur = 1;
+            opacite = 0.5;
         }
-        public Polyline(double ep, Color col, List<ICoord>coord) : this()
+        public Polyline(double ep, Color col,double op, List<ICoord> coord) : this()
         {
-           // c = new Collection<Coordonnees>();
+            // c = new Collection<Coordonnees>();
             for (int i = 0; i < coord.Count; i++)
                 lCoordonnees.Add(coord[i]);
 
             epaisseur = ep;
             color = col;
+            opacite = op;
 
         }
         public Polyline(Polyline poly) : this()
         {
             for (int i = 0; i < poly.lCoord.Count; i++)
-                lCoordonnees.Add(poly.lCoord[i]);
+            {
+                if (poly.lCoord[i] is POI)
+                    lCoordonnees.Add(new POI(poly.lCoord[i].Description, poly.lCoord[i].X, poly.lCoord[i].Y));
+                else
+                    lCoordonnees.Add(new Coordonnees(poly.lCoord[i].X, poly.lCoord[i].Y));
 
-            epaisseur = poly.Epaisseur ;
+            }
+            opacite = poly.Opacite;
+            epaisseur = poly.Epaisseur;
             color = poly.Couleur;
         }
         ~Polyline()
@@ -60,14 +69,14 @@ namespace ProjectLibraryClass
             lCoordonnees.Add(coord);
 
         }
-       public override int nbPoint
-            {
+        public override int nbPoint
+        {
             get { return lCoordonnees.Count; }
-            }
+        }
         public override string ToString()
         {
             string tmp = "---------------------------------------------" + Environment.NewLine;
-             tmp +="Polyline " + base.ToString() +Environment.NewLine+ " " + "Epaisseur = " + epaisseur + " Couleur = " + color.ToString() + Environment.NewLine;
+            tmp += "Polyline " + base.ToString() + Environment.NewLine + " " + "Epaisseur = " + epaisseur + " Couleur = " + color.ToString() + Environment.NewLine;
             for (int i = 0; i < lCoordonnees.Count(); i++)
             {
                 tmp += lCoordonnees[i].ToString();
@@ -87,9 +96,9 @@ namespace ProjectLibraryClass
         {
             double distance;
             /// Normalement un polyline est composé d'au moins une ligne (même si on parlera plus d'une line que d'un polyline)
-            if (lCoordonnees.Count < 2) 
+            if (lCoordonnees.Count < 2)
                 return false;
-            for(int i=0;i<lCoordonnees.Count-1;i++)
+            for (int i = 0; i < lCoordonnees.Count - 1; i++)
             {
                 ///Distance premier point du segment
                 distance = MathUtil.DistanceDeuxPoints(x, y, lCoordonnees[i].X, lCoordonnees[i].Y);
@@ -109,7 +118,7 @@ namespace ProjectLibraryClass
             return false;
 
         }
-        public ICoord WhichPointIsClose(double x,double y)
+        public ICoord WhichPointIsClose(double x, double y)
         {
             ICoord obj = lCoordonnees[0];
             double distancemin = -1; ;
@@ -125,10 +134,10 @@ namespace ProjectLibraryClass
                 ///Distance points segment
                 ///Calcul du coefficient directeut (y2 -y1)/(x2-x1)
                 distancemintmp = GetDistanceMin(distancemin, distancetmp);
-                if(distancemintmp[1] != -1)
+                if (distancemintmp[1] != -1)
                 {
                     distancemin = distancemintmp[0];
-                    switch(distancemintmp[1])
+                    switch (distancemintmp[1])
                     {
                         case 0:
                             obj = lCoord[i];
@@ -137,7 +146,7 @@ namespace ProjectLibraryClass
                             obj = lCoord[i + 1];
                             break;
                     }
-                    
+
                 }
             }
 
@@ -169,17 +178,17 @@ namespace ProjectLibraryClass
         {
             if (poly == null) return 1;
 
-            return LongueurPolyline().CompareTo(poly.LongueurPolyline()); 
-               
+            return LongueurPolyline().CompareTo(poly.LongueurPolyline());
+
         }
 
         public double LongueurPolyline()
         {
             double distance = 0;
             int i = 0;
-            while(i< lCoordonnees.Count-1)
+            while (i < lCoordonnees.Count - 1)
             {
-                distance += MathUtil.DistanceDeuxPoints(lCoordonnees[i].X, lCoordonnees[i].Y, lCoordonnees[++i].X, lCoordonnees[++i].Y); 
+                distance += MathUtil.DistanceDeuxPoints(lCoordonnees[i].X, lCoordonnees[i].Y, lCoordonnees[++i].X, lCoordonnees[++i].Y);
             }
             return distance;
         }
@@ -211,6 +220,11 @@ namespace ProjectLibraryClass
             return Math.Abs(MathUtil.DistanceDeuxPoints(bBox[0].X, bBox[0].Y, bBox[1].X, bBox[1].Y) * MathUtil.DistanceDeuxPoints(bBox[1].X, bBox[1].Y, bBox[2].X, bBox[2].Y));
         }
 
+        public double Opacite
+        {
+            get { return opacite; }
+            set { opacite = value; }
+        }
 
     }
 }
