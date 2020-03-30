@@ -192,7 +192,7 @@ namespace ApplicationWPF
                     }
                     Console.WriteLine("Point le plus proche : " + objtmp[distPos].X + "/" + objtmp[distPos].Y);
                     ///Arriver ici, nous avons les coordonnées du point le plus proche
-                    if(objtmp[distPos] is POI)
+                    if(objtmp[distPos] is POI )
                     {
                         if(RBPoi.IsChecked == true)
                         {
@@ -229,12 +229,19 @@ namespace ApplicationWPF
                     loc = new Location();
                     loc = myMap.ViewportPointToLocation(mousePosition);
                     Console.WriteLine("Loc = " + loc.Latitude + "/ " + loc.Longitude);
-                    if (RBPoi.IsChecked == true)
+                    if (status == "Créer")
                     {
-                        obj = new POI(loc.Latitude, loc.Longitude);
+                        if (RBPoi.IsChecked == true)
+                        {
+                            obj = new POI(loc.Latitude, loc.Longitude);
+                        }
+                        else
+                            obj = new Coordonnees(loc.Latitude, loc.Longitude);
                     }
                     else
-                        obj = new Coordonnees(loc.Latitude, loc.Longitude) ;
+                        obj = null; ///Ne plus avoir l'erreur ligne 262 (utilisation d'une variable non assigné)
+                    
+
                
 
                 }
@@ -338,7 +345,7 @@ namespace ApplicationWPF
                                     a = 0;
                                     while(a<mP.CartoCollection[j].lCoord.Count && find == false)
                                     {
-                                        if (mP.CartoCollection[j].lCoord[a].X == obj.X && mP.CartoCollection[j].lCoord[a].Y == obj.Y)
+                                        if (mP.CartoCollection[j].lCoord[a].X == loc.Latitude && mP.CartoCollection[j].lCoord[a].Y == loc.Longitude)
                                             find = true;
                                         else
                                             a++;
@@ -370,7 +377,7 @@ namespace ApplicationWPF
                                     a = 0;
                                     while (a < mP.CartoCollection[j].lCoord.Count && find == false)
                                     {
-                                        if (mP.CartoCollection[j].lCoord[a].X == obj.X && mP.CartoCollection[j].lCoord[a].Y == obj.Y)
+                                        if (mP.CartoCollection[j].lCoord[a].X == loc.Latitude && mP.CartoCollection[j].lCoord[a].Y == loc.Longitude)
                                             find = true;
                                         else
                                             a++;

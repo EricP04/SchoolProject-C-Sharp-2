@@ -20,12 +20,12 @@
                         <TextBlock Text="Precision" TextDecorations="Underline" HorizontalAlignment="Left"/>
                         <TextBlock x:Name="TbPrecision" Text="{Binding ElementName=SliderPrecision, Path=Value}" HorizontalAlignment="Right"/>
                     </Grid>
-                    <Slider x:Name="SliderPrecision" IsSnapToTickEnabled="True" Maximum="100" TickPlacement="BottomRight" TickFrequency="5"  ValueChanged="SliderPrecision_ValueChanged"/>
+                    <Slider x:Name="SliderPrecision" IsSnapToTickEnabled="True" Maximum="100" TickPlacement="BottomRight" TickFrequency="1"  ValueChanged="SliderPrecision_ValueChanged"/>
                     <Grid VerticalAlignment="Top">
                         <TextBlock Text="Epaisseur" TextDecorations="Underline" HorizontalAlignment="Left"/>
                         <TextBlock x:Name="TbEpaisseur" Text="{Binding ElementName=SliderEpaisseur, Path =Value}" HorizontalAlignment="Right"/>
                     </Grid>
-                    <Slider x:Name="SliderEpaisseur" IsSnapToTickEnabled="True" Maximum="25" TickPlacement="BottomRight" TickFrequency="5"  ValueChanged="SliderEpaisseur_ValueChanged"/>
+                    <Slider x:Name="SliderEpaisseur" IsSnapToTickEnabled="True" Maximum="25" TickPlacement="BottomRight" TickFrequency="1"  ValueChanged="SliderEpaisseur_ValueChanged"/>
 
                     <TextBlock Text="Couleur de contour par défault" TextDecorations="Underline" HorizontalAlignment="Left"/>
                     <Canvas HorizontalAlignment="Center">
